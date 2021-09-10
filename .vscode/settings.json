@@ -1,6 +1,0 @@
-{
-    "ros.distro": "noetic",
-    "python.autoComplete.extraPaths": [
-        "/home/vertti/ros_catkin_ws/devel/lib/python3/dist-packages"
-    ]
-}
