@@ -37,6 +37,7 @@
 #include <sensor_msgs/image_encodings.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <boost/scoped_array.hpp>
+#include <boost/bind/bind.hpp>
 #include <vector>
 
 using namespace std;
@@ -73,7 +74,7 @@ void TheoraSubscriber::subscribeImpl(ros::NodeHandle &nh, const std::string &bas
 
   // Set up reconfigure server for this topic
   reconfigure_server_ = boost::make_shared<ReconfigureServer>(this->nh());
-  ReconfigureServer::CallbackType f = boost::bind(&TheoraSubscriber::configCb, this, _1, _2);
+  ReconfigureServer::CallbackType f = boost::bind(&TheoraSubscriber::configCb, this, boost::placeholders::_1, boost::placeholders::_2);
   reconfigure_server_->setCallback(f);
 }
 

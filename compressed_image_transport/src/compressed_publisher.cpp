@@ -38,6 +38,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <boost/make_shared.hpp>
+#include <boost/bind/bind.hpp>
 
 #include "compressed_image_transport/compression_common.h"
 
@@ -67,7 +68,7 @@ void CompressedPublisher::advertiseImpl(ros::NodeHandle &nh, const std::string &
 
   // Set up reconfigure server for this topic
   reconfigure_server_ = boost::make_shared<ReconfigureServer>(this->nh());
-  ReconfigureServer::CallbackType f = boost::bind(&CompressedPublisher::configCb, this, _1, _2);
+  ReconfigureServer::CallbackType f = boost::bind(&CompressedPublisher::configCb, this, boost::placeholders::_1, boost::placeholders::_2);
   reconfigure_server_->setCallback(f);
 }
 

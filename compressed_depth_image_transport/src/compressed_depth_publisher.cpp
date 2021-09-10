@@ -37,6 +37,7 @@
 #include <sensor_msgs/image_encodings.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <boost/make_shared.hpp>
+#include <boost/bind/bind.hpp>
 
 #include "compressed_depth_image_transport/codec.h"
 #include "compressed_depth_image_transport/compression_common.h"
@@ -62,7 +63,7 @@ void CompressedDepthPublisher::advertiseImpl(ros::NodeHandle &nh, const std::str
 
   // Set up reconfigure server for this topic
   reconfigure_server_ = boost::make_shared<ReconfigureServer>(this->nh());
-  ReconfigureServer::CallbackType f = boost::bind(&CompressedDepthPublisher::configCb, this, _1, _2);
+  ReconfigureServer::CallbackType f = boost::bind(&CompressedDepthPublisher::configCb, this, boost::placeholders::_1, boost::placeholders::_2);
   reconfigure_server_->setCallback(f);
 }
 
